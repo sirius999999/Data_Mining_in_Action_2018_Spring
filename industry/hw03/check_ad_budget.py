@@ -1,6 +1,7 @@
 import os
-from ad_budget_checker import Checker
 import json
+import re
+from ad_budget_checker import Checker
 
 
 if __name__ == '__main__':
@@ -9,7 +10,7 @@ if __name__ == '__main__':
     results = {}
     for filename in os.listdir('results/ad_budget'):
         if filename.endswith('.py'):
-            name = '_'.join(filename.split()[0].split('_')[-1:]).strip()
+            name = ''.join(re.split('ad_budget_| - ', filename)[:-1]).strip()
             score = checker.check('results/ad_budget/' + filename)
             print(name, score)
             if score is not None:
